@@ -1,0 +1,21 @@
+{
+  "name": "imd-tutors",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generate": "tsx ./tools/generate.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.11.0",
+  "devDependencies": {
+    "@types/lodash": "^4.17.17",
+    "@types/node": "^22.15.24",
+    "csv": "^6.3.11",
+    "lodash": "^4.17.21",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
