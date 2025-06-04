@@ -2,9 +2,10 @@ import { parse } from "csv";
 import fs from "fs";
 import path from "node:path";
 import Tutor from "../models/tutor";
+import { load } from "./storage";
 
 export default function loadTutors(onLoad: (tutors: Tutor[]) => void) {
-    const folder = "./tutors";
+    const folder = "./data/tutors";
     fs.readdir(folder, (err, files) => {
         if(err) {
             console.error("Erro ao ler pasta dos tutores!");
@@ -21,7 +22,7 @@ export default function loadTutors(onLoad: (tutors: Tutor[]) => void) {
         };
         
         let tutors: Tutor[] = [];
-        csvs.forEach((file) => {
+        for(const file of csvs) {
             const name = file.replace(".csv", "");
             const filePath = path.join(folder, file);
 
@@ -46,10 +47,21 @@ export default function loadTutors(onLoad: (tutors: Tutor[]) => void) {
                     const tutor = new Tutor(name, data);
                     tutors.push(tutor);
                     if(tutors.length === csvs.length) {
-                        onLoad(tutors);
+                        load((loaded_tutors) => {
+                            for(const tutor of tutors) {
+                                for(const loaded_tutor of loaded_tutors) {
+                                    if(loaded_tutor.name === tutor.name) {
+                                        loaded_tutor.refresh_students();
+                                        tutor.students = loaded_tutor.students;
+                                    };
+                                };
+                            };
+    
+                            onLoad(tutors);
+                        });
                     };
                 });
             });
-        });
+        };
     });    
 };

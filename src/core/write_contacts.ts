@@ -12,7 +12,7 @@ export default function writeContacts(students: Student[]) {
             process.exit(0);
         };
 
-        fs.writeFile("contacts.csv", output, { 
+        fs.writeFile("./output/contacts.csv", output, { 
             encoding: "utf-8" 
         }, (err) => {
             if(err) {

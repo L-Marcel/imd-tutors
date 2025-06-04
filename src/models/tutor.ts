@@ -1,3 +1,4 @@
+import { startCase } from "lodash";
 import { day_to_property_name } from "../utils/times";
 import AvailableTimes from "./available_times";
 import AvailableTutorTimes from "./available_tutor_times";
@@ -9,13 +10,29 @@ export default class Tutor {
     public students: Student[];
 
     constructor(name: string, forms: TutorForm[]) {
-        this.name = name;
+        this.name = startCase(name);
         this.available_times = AvailableTutorTimes.fromTutorForm(forms);
         this.students = [];
     };
 
+    public refresh_students() {
+        for(const student of this.students) {
+            student.tutor = this;
+        };
+    };
+
+    public link(student: Student, at: Date) {
+        student.tutor = this;
+        student.linked_at = at;
+        this.students.push(student);
+    };
+
     public isFull(): boolean {
         return this.students.length >= 30;
+    };
+
+    public equals(tutor?: Tutor) {
+        return this.name === tutor?.name;
     };
 
     public getTimeScore(student_available_times: AvailableTimes): number {

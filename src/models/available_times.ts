@@ -24,7 +24,6 @@ export default class AvailableTimes {
 
         for(const time of form_times) {
             if(time.value === "") continue;
-   
             const days = time.value.split(", ");
             for(const day of days) {
                 const property_name = day_to_property_name(day);
