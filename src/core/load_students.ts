@@ -1,9 +1,10 @@
 import { parse, stringify } from "csv";
 import fs from "fs";
 import Student from "../models/student";
+import { compareAsc } from "date-fns";
 
-export default function loadStudents(path: string, onLoad: (students: Student[]) => void) {
-    fs.readFile(path, { 
+export default function loadStudents(onLoad: (students: Student[]) => void) {
+    fs.readFile("./data/students.csv", { 
         encoding: "utf-8"
     }, (err, data) => {
         if(err) {

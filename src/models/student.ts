@@ -14,6 +14,8 @@ export default class Student {
     public preferred_tutors: string[];
     public available_times: AvailableTimes;
     public linked_at?: Date;
+    public link_score: number = -1;
+    public link_was_preference: boolean = false;
     public submitted_at: Date;
     public tutor?: Tutor;
 

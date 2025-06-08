@@ -3,4 +3,5 @@ node_modules
 *.xml
 *.json
 *.log
+*.png
 !tsconfig.json

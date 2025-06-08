@@ -7,7 +7,7 @@ import writeFilters from './write_filters';
 import writeHistory from './write_history';
 
 loadTutors((tutors) => {
-    loadStudents("./data/candidates.csv", (students) => {
+    loadStudents((students) => {
         distribute(tutors, students);
         writeContacts(students);
         writeFilters(tutors);

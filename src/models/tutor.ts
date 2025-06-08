@@ -10,7 +10,7 @@ export default class Tutor {
     public students: Student[];
 
     constructor(name: string, forms: TutorForm[]) {
-        this.name = startCase(name);
+        this.name = name;
         this.available_times = AvailableTutorTimes.fromTutorForm(forms);
         this.students = [];
     };
@@ -24,6 +24,8 @@ export default class Tutor {
     public link(student: Student, at: Date) {
         student.tutor = this;
         student.linked_at = at;
+        student.link_was_preference = student.preferred_tutors.includes(this.name);
+        student.link_score = this.getTimeScore(student.available_times);
         this.students.push(student);
     };
 

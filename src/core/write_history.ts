@@ -51,7 +51,8 @@ export default function writeHistory(
         };
 
         current_students.push(student);
-        history += `${student.name} (${student.email})\n`;
+        const link_was_preference = (student.link_was_preference? "Sim":"Não");
+        history += `[${student.link_score}, ${link_was_preference}] ${student.name} (${student.email})\n`;
     };
 
     if(current_students.length > 0) {
