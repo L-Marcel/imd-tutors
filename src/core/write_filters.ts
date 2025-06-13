@@ -27,7 +27,7 @@ export default function writeFilters(
             <updated>${now}</updated>
             <content/>
             <apps:property name="from" value="${escapeXml(emailsValue)}"/>
-            <apps:property name="label" value="${escapeXml(tutor.name)}"/>
+            <apps:property name="label" value="Tutores/${escapeXml(tutor.name)}"/>
             <apps:property name="shouldAlwaysMarkAsImportant" value="true"/>
             <apps:property name="smartLabelToApply" value="^smartlabel_personal"/>
             <apps:property name="sizeOperator" value="s_sl"/>

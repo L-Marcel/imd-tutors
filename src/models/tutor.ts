@@ -1,4 +1,3 @@
-import { startCase } from "lodash";
 import { day_to_property_name } from "../utils/times";
 import AvailableTimes from "./available_times";
 import AvailableTutorTimes from "./available_tutor_times";
@@ -15,10 +14,24 @@ export default class Tutor {
         this.students = [];
     };
 
-    public refresh_students() {
+    public refreshStudents() {
         for(const student of this.students) {
             student.tutor = this;
         };
+    };
+
+    public isStudentAlreadyLinked(candidate: Student): boolean {
+        for(const student of this.students) {
+            if(student.equals(candidate)) {
+                candidate.tutor = student.tutor; 
+                candidate.linked_at = student.linked_at; 
+                candidate.link_was_preference = student.link_was_preference; 
+                candidate.link_score = student.link_score; 
+                return true;
+            };
+        };
+    
+        return false;
     };
 
     public link(student: Student, at: Date) {

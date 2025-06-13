@@ -51,7 +51,7 @@ export default function loadTutors(onLoad: (tutors: Tutor[]) => void) {
                             for(const tutor of tutors) {
                                 for(const loaded_tutor of loaded_tutors) {
                                     if(loaded_tutor.name === tutor.name) {
-                                        loaded_tutor.refresh_students();
+                                        loaded_tutor.refreshStudents();
                                         tutor.students = loaded_tutor.students;
                                     };
                                 };

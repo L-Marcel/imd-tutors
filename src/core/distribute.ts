@@ -21,8 +21,8 @@ export default function distribute(tutors: Tutor[], students: Student[]) {
 
 function isAlreadyLinked(student: Student, tutors: Tutor[]): boolean {
     for(const tutor of tutors) {
-        const isLinked = tutor.students.some((other) => other.equals(student));
-        if(isLinked) return true;
+        if(tutor.isStudentAlreadyLinked(student)) 
+            return true;
     };
 
     return false;
@@ -54,7 +54,7 @@ function linkBestTutor(student: Student, tutors: Tutor[], at: Date) {
         return a.name.localeCompare(b.name);
     });
 
-    console.log(_tutors.map(t => [t.name, t.isFull(), t.getTimeScore(student.available_times), t.students.length]), " selected: ", _tutors[0].name);
+    //console.log(_tutors.map(t => [t.name, t.isFull(), t.getTimeScore(student.available_times), t.students.length]), " selected: ", _tutors[0].name);
 
     _tutors[0].link(student, at);
 };

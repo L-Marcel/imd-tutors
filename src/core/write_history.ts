@@ -31,34 +31,42 @@ export default function writeHistory(
         const student = students[i];
         const linked_at = fromDate(student.linked_at ?? now);
         if(linked_at !== current_date) {
+            if(current_students.length > 0) {
+                history += "**E-mails**: ";
+                const emails = current_students.map((student) => student.email).join(", ");
+                history += emails + "\n";
+            };
+
             if(!first_line) history += "\n\n\n";
             first_line = false;
-            history += "======================== " + linked_at + " ========================";
+            history += linked_at;
             current_date = linked_at;
+            current_tutor = undefined;
+            current_students = [];
         };
 
         const tutor = student.tutor as Tutor;
         if(!tutor.equals(current_tutor)) {
             if(current_students.length > 0) {
-                history += "\nE-mails: ";
+                history += "**E-mails**: ";
                 const emails = current_students.map((student) => student.email).join(", ");
-                history += emails + "\n------------------------------------------------------------";
+                history += emails + "\n";
             };
 
             current_students = [];
-            history += "\n\n\n" + tutor.name + ":\n------------------------------------------------------------\n"; 
+            history += "\n\n\n# " + tutor.name + "\n"; 
             current_tutor = tutor;
         };
 
         current_students.push(student);
         const link_was_preference = (student.link_was_preference? "Sim":"Não");
-        history += `[${student.link_score}, ${link_was_preference}] ${student.name} (${student.email})\n`;
+        history += `[${student.link_score}, ${link_was_preference}] ${student.name}\n (${student.email})\n\n`;
     };
 
     if(current_students.length > 0) {
-        history += "\nE-mails: ";
+        history += "**E-mails**: ";
         const emails = current_students.map((student) => student.email).join(", ");
-        history += emails + "\n------------------------------------------------------------";
+        history += emails + "\n";
     };
 
     fs.writeFile("./output/history.log", history, { 
